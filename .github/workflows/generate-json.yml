@@ -3,7 +3,7 @@ name: Generate Sample JSON
 on:
   schedule:
     # 1:00 PM IST = 07:30 UTC
-    - cron: '20 8 * * *'
+    - cron: '26 8 * * *'
   workflow_dispatch:  # Allows manual trigger from the Actions tab
 
 jobs:
