@@ -1,0 +1,57 @@
+{
+  "generatedAt": "2026-08-25T07:50:10.322Z",
+  "timezone": "Asia/Kolkata (IST)",
+  "users": [
+    {
+      "id": 1,
+      "name": "Aarav Sharma",
+      "email": "aarav@example.com",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "name": "Priya Patel",
+      "email": "priya@example.com",
+      "role": "user"
+    },
+    {
+      "id": 3,
+      "name": "Rohan Gupta",
+      "email": "rohan@example.com",
+      "role": "user"
+    },
+    {
+      "id": 4,
+      "name": "Sneha Reddy",
+      "email": "sneha@example.com",
+      "role": "moderator"
+    }
+  ],
+  "products": [
+    {
+      "id": 101,
+      "name": "Wireless Earbuds",
+      "price": 2499,
+      "currency": "INR",
+      "inStock": true
+    },
+    {
+      "id": 102,
+      "name": "Smart Watch",
+      "price": 8999,
+      "currency": "INR",
+      "inStock": true
+    },
+    {
+      "id": 103,
+      "name": "Laptop Stand",
+      "price": 1299,
+      "currency": "INR",
+      "inStock": false
+    }
+  ],
+  "meta": {
+    "version": "1.0.0",
+    "source": "GitHub Actions scheduled job"
+  }
+}
