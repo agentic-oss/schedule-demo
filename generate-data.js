@@ -1,4 +1,5 @@
 // generate-data.js
+
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
@@ -104,12 +105,26 @@ const scripCodes = [
   "532215"  // (Axis already listed – example of overlap)
 ];
 
-const API_URL = 'https://api.bseindia.com/BseIndiaAPI/api/StockReachGraph/w';
+const API_URL =
+  'https://api.bseindia.com/BseIndiaAPI/api/StockReachGraph/w';
 
-const outputPath = path.join(__dirname, 'data', 'bse-stock-data.json');
+const dataDirectory = path.join(__dirname, 'data');
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function getTimestamp() {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day}-${hours}-${minutes}-${seconds}`;
 }
 
 function fetchStockData(scripCode) {
@@ -128,7 +143,9 @@ function fetchStockData(scripCode) {
         headers: {
           'User-Agent':
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151.0.0.0 Safari/537.36',
+
           'Accept': 'application/json, text/plain, */*',
+
           'Referer': 'https://www.bseindia.com/'
         }
       },
@@ -168,8 +185,11 @@ function fetchStockData(scripCode) {
 
     request.setTimeout(30000, () => {
       request.destroy();
+
       reject(
-        new Error(`Request timeout for scrip code ${scripCode}`)
+        new Error(
+          `Request timeout for scrip code ${scripCode}`
+        )
       );
     });
   });
@@ -178,11 +198,25 @@ function fetchStockData(scripCode) {
 async function generateData() {
   const generatedAt = new Date().toISOString();
 
+  // Generate timestamp for filename
+  const timestamp = getTimestamp();
+
+  const outputFileName =
+    `bse-stock-data-${timestamp}.json`;
+
+  const outputPath =
+    path.join(dataDirectory, outputFileName);
+
   const stockData = [];
   const failedScripCodes = [];
 
-  console.log(`Starting BSE data fetch...`);
+  console.log('====================================');
+  console.log('Starting BSE data fetch');
+  console.log('====================================');
+
   console.log(`Total scrip codes: ${scripCodes.length}`);
+  console.log(`Timestamp: ${generatedAt}`);
+  console.log('');
 
   for (const scripCode of scripCodes) {
     console.log(`Fetching scrip code: ${scripCode}`);
@@ -206,18 +240,20 @@ async function generateData() {
       });
     }
 
-    // Wait 1 second before the next request
+    // Wait 1 second before next request
     await sleep(1000);
   }
 
   const outputData = {
     generatedAt,
+
     timezone: 'Asia/Kolkata (IST)',
 
     meta: {
       totalScripCodes: scripCodes.length,
       successful: stockData.length,
       failed: failedScripCodes.length,
+
       source: 'BSE India API'
     },
 
@@ -226,12 +262,12 @@ async function generateData() {
     failed: failedScripCodes
   };
 
-  // Ensure data directory exists
-  fs.mkdirSync(path.dirname(outputPath), {
+  // Create data directory if it doesn't exist
+  fs.mkdirSync(dataDirectory, {
     recursive: true
   });
 
-  // Write JSON file
+  // Generate a new JSON file
   fs.writeFileSync(
     outputPath,
     JSON.stringify(outputData, null, 2),
@@ -240,8 +276,9 @@ async function generateData() {
 
   console.log('');
   console.log('====================================');
-  console.log('✅ BSE JSON file generated successfully');
+  console.log('✅ BSE JSON file generated');
   console.log('====================================');
+
   console.log(`📁 File: ${outputPath}`);
   console.log(`📊 Total: ${scripCodes.length}`);
   console.log(`✅ Successful: ${stockData.length}`);
