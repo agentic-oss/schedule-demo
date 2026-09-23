@@ -2,109 +2,46 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
+const { URL } = require('url');
 
 const scripCodes = [
-  "500325", // Reliance Industries
-  "532454", // Bharti Airtel
-  "500180", // HDFC Bank
-  "532174", // ICICI Bank
-  "500112", // State Bank of India
-  "532540", // TCS
-  "500034", // Bajaj Finance
-  "500510", // Larsen & Toubro
-  "543526", // LIC
-  "500696", // Hindustan Unilever
-  "500209", // Infosys
-  "524715", // Sun Pharma
-  "500114", // Titan
-  "532500", // Maruti Suzuki
-  "500520", // Mahindra & Mahindra
-  "512599", // Adani Enterprises
-  "500247", // Kotak Mahindra Bank
-  "533096", // Adani Power
-  "532921", // Adani Ports
-  "532215", // Axis Bank
-  "532281", // HCL Technologies
-  "532538", // UltraTech Cement
-  "500875", // ITC
-  "532555", // NTPC
-  "532977", // Bajaj Auto
-  "541154", // Hindustan Aeronautics (HAL)
-  "500228", // JSW Steel
-  "532978", // Bajaj Finserv
-  "543320", // Eternal
-  "500049", // Bharat Electronics
-  "500312", // ONGC
-  "500790", // Nestle India
-  "511218", // Shriram Finance
-  "540376", // Avenue Supermarts (DMart)
-  "500188", // Hindustan Zinc
-  "532898", // Power Grid
-  "500820", // Asian Paints
-  "533278", // Coal India
-  "500440", // Hindalco
-  "500470", // Tata Steel
-  "532488", // Divi's Laboratories
-  "500300", // Grasim Industries
-  "505200", // Eicher Motors
-  "541450", // Adani Green Energy
-  "532343", // TVS Motor
-  "539448", // InterGlobe Aviation (IndiGo)
-  "530965", // Indian Oil Corporation
-  "539254", // Adani Energy Solutions
-  "500420", // Torrent Pharmaceuticals
-  "507685", // Wipro
-  "544274", // Hyundai Motor India
-  "532725", // Solar Industries
-  "540719", // SBI Life Insurance
-  "517334", // Samvardhana Motherson
-  "544569", // Tata Motors
-  "532868", // DLF
-  "500331", // Pidilite Industries
-  "543940", // Jio Financial Services
-  "500002", // ABB India
-  "508869", // Apollo Hospitals
-  "500477", // Ashok Leyland
-  "540611", // AU Small Finance Bank
-  "500490", // Bajaj Holdings & Investment
-  "532134", // Bank of Baroda
-  "500547", // Bharat Petroleum (BPCL)
-  "500825", // Britannia Industries
-  "532483", // Canara Bank
-  "500093", // CG Power
-  "511243", // Cholamandalam Investment
-  "500087", // Cipla
-  "532541", // Coforge
-  "500480", // Cummins India
-  "500182", // Hero MotoCorp
-  "532187", // IndusInd Bank
-  "500400", // Tata Power
-  "532155", // GAIL
-  "500425", // Ambuja Cements
-  "500103", // BHEL
-  "532286", // Jindal Steel & Power
-  "500257", // Lupin
-  "532424", // Godrej Consumer
-  "500830", // Colgate-Palmolive (India)
-  "532810", // Power Finance Corporation
-  "532955", // REC
-  "500469", // Federal Bank
-  "532461", // Punjab National Bank
-  "500124", // Dr. Reddy's Laboratories
-  "532777", // Info Edge
-  "533179", // Persistent Systems
-  "540699", // Dixon Technologies
-  "500387", // Shree Cement
-  "503806", // SRF
-  "532667", // Suzlon Energy
-  "540180", // Varun Beverages
-  "532648", // Yes Bank
-  "500550", // Siemens
+  "500325", "532454", "500180", "532174", "500112", "532540", "500034",
+  "500510", "543526", "500696", "500209", "524715", "500114", "532500",
+  "500520", "512599", "500247", "533096", "532921", "532215", "532281",
+  "532538", "500875", "532555", "532977", "541154", "500228", "532978",
+  "543320", "500049", "500312", "500790", "511218", "540376", "500188",
+  "532898", "500820", "533278", "500440", "500470", "532488", "500300",
+  "505200", "541450", "532343", "539448", "530965", "539254", "500420",
+  "507685", "544274", "532725", "540719", "517334", "544569", "532868",
+  "500331", "543940", "500002", "508869", "500477", "540611", "500490",
+  "532134", "500547", "500825", "532483", "500093", "511243", "500087",
+  "532541", "500480", "500182", "532187", "500400", "532155", "500425",
+  "500103", "532286", "500257", "532424", "500830", "532810", "532955",
+  "500469", "532461", "500124", "532777", "533179", "540699", "500387",
+  "503806", "532667", "540180", "532648", "500550"
 ];
 
 const API_URL = 'https://api.bseindia.com/BseIndiaAPI/api/StockReachGraphCas/w';
-
 const dataDirectory = path.join(__dirname, 'data');
+
+const HEADERS = {
+  'User-Agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
+  'Accept': 'application/json, text/plain, */*',
+  'Accept-Language': 'en-US,en;q=0.9',
+  'Origin': 'https://www.bseindia.com',
+  'Referer': 'https://www.bseindia.com/',
+  'Connection': 'keep-alive',
+  'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "Google Chrome";v="134"',
+  'sec-ch-ua-mobile': '?0',
+  'sec-ch-ua-platform': '"Windows"',
+  'sec-fetch-dest': 'empty',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-site': 'same-site'
+};
+
+// Simple cookie jar
+let cookieJar = '';
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -112,81 +49,101 @@ function sleep(ms) {
 
 function getTimestamp() {
   const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  const seconds = String(now.getSeconds()).padStart(2, '0');
-  return `${year}-${month}-${day}-${hours}-${minutes}-${seconds}`;
+  return [
+    now.getFullYear(),
+    String(now.getMonth() + 1).padStart(2, '0'),
+    String(now.getDate()).padStart(2, '0'),
+    String(now.getHours()).padStart(2, '0'),
+    String(now.getMinutes()).padStart(2, '0'),
+    String(now.getSeconds()).padStart(2, '0')
+  ].join('-');
 }
 
-function fetchStockData(scripCode) {
+function httpsGet(url, extraHeaders = {}) {
   return new Promise((resolve, reject) => {
-    const url = new URL(API_URL);
-    url.searchParams.set('scripcode', scripCode);
-    url.searchParams.set('flag', '0');
-    url.searchParams.set('fromdate', '');
-    url.searchParams.set('todate', '');
-    url.searchParams.set('seriesid', '');
-
-    const request = https.get(
-      url,
-      {
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151.0.0.0 Safari/537.36',
-          'Accept': 'application/json, text/plain, */*',
-          'Referer': 'https://www.bseindia.com/'
-        }
+    const parsed = new URL(url);
+    const options = {
+      hostname: parsed.hostname,
+      path: parsed.pathname + parsed.search,
+      method: 'GET',
+      headers: {
+        ...HEADERS,
+        ...extraHeaders,
+        ...(cookieJar ? { Cookie: cookieJar } : {})
       },
-      response => {
-        let data = '';
-        response.on('data', chunk => {
-          data += chunk;
-        });
-        response.on('end', () => {
-          if (response.statusCode < 200 || response.statusCode >= 300) {
-            reject(
-              new Error(
-                `HTTP ${response.statusCode} for scrip code ${scripCode}`
-              )
-            );
-            return;
-          }
-          try {
-            resolve(JSON.parse(data));
-          } catch (error) {
-            reject(
-              new Error(
-                `Invalid JSON response for scrip code ${scripCode}`
-              )
-            );
-          }
-        });
+      timeout: 30000
+    };
+
+    const req = https.request(options, res => {
+      // Capture Set-Cookie
+      const setCookie = res.headers['set-cookie'];
+      if (setCookie) {
+        cookieJar = setCookie.map(c => c.split(';')[0]).join('; ');
       }
-    );
 
-    request.on('error', error => {
-      reject(error);
+      let data = '';
+      res.on('data', chunk => (data += chunk));
+      res.on('end', () => {
+        resolve({ statusCode: res.statusCode, body: data, headers: res.headers });
+      });
     });
 
-    request.setTimeout(30000, () => {
-      request.destroy();
-      reject(
-        new Error(
-          `Request timeout for scrip code ${scripCode}`
-        )
-      );
+    req.on('error', reject);
+    req.on('timeout', () => {
+      req.destroy();
+      reject(new Error('Request timeout'));
     });
+    req.end();
   });
+}
+
+async function warmUp() {
+  console.log('Warming up session (visiting bseindia.com)...');
+  try {
+    await httpsGet('https://www.bseindia.com/');
+    // also hit a stock page once
+    await httpsGet('https://www.bseindia.com/stock-share-price/tata-steel-ltd/TATASTEEL/500470/');
+    console.log('Warm-up done.\n');
+  } catch (e) {
+    console.warn('Warm-up failed (continuing anyway):', e.message);
+  }
+}
+
+async function fetchStockData(scripCode, retries = 2) {
+  const url = new URL(API_URL);
+  url.searchParams.set('scripcode', scripCode);
+  url.searchParams.set('flag', '0');
+  url.searchParams.set('fromdate', '');
+  url.searchParams.set('todate', '');
+  url.searchParams.set('seriesid', '');
+
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const { statusCode, body } = await httpsGet(url.toString());
+
+    if (statusCode >= 200 && statusCode < 300) {
+      try {
+        return JSON.parse(body);
+      } catch {
+        throw new Error(`Invalid JSON for ${scripCode}`);
+      }
+    }
+
+    if (statusCode === 403 && attempt < retries) {
+      console.warn(`  403 on ${scripCode} – retrying in 3s...`);
+      await sleep(3000);
+      // re-warm sometimes helps
+      await warmUp();
+      continue;
+    }
+
+    throw new Error(`HTTP ${statusCode} for scrip code ${scripCode}`);
+  }
 }
 
 async function generateData() {
   const generatedAt = new Date().toISOString();
   const timestamp = getTimestamp();
-  const outputFileName = `bse-stock-data-${timestamp}.json`;
-  const outputPath = path.join(dataDirectory, outputFileName);
+  const outputPath = path.join(dataDirectory, `bse-stock-data-${timestamp}.json`);
 
   const stockData = [];
   const failedScripCodes = [];
@@ -195,29 +152,23 @@ async function generateData() {
   console.log('Starting BSE data fetch (StockReachGraphCas)');
   console.log('====================================');
   console.log(`Total scrip codes: ${scripCodes.length}`);
-  console.log(`Timestamp: ${generatedAt}`);
-  console.log('');
+  console.log(`Timestamp: ${generatedAt}\n`);
+
+  await warmUp();
 
   for (const scripCode of scripCodes) {
     console.log(`Fetching scrip code: ${scripCode}`);
     try {
       const data = await fetchStockData(scripCode);
-      stockData.push({
-        scripCode,
-        data
-      });
+      stockData.push({ scripCode, data });
       console.log(`✅ Successfully fetched: ${scripCode}`);
     } catch (error) {
-      console.error(`❌ Failed: ${scripCode}`);
-      console.error(`   ${error.message}`);
-      failedScripCodes.push({
-        scripCode,
-        error: error.message
-      });
+      console.error(`❌ Failed: ${scripCode} → ${error.message}`);
+      failedScripCodes.push({ scripCode, error: error.message });
     }
 
-    // Wait 1 second before next request
-    await sleep(1000);
+    // 1.5–2.5 s delay helps avoid rate / bot detection
+    await sleep(1500 + Math.random() * 1000);
   }
 
   const outputData = {
@@ -233,20 +184,10 @@ async function generateData() {
     failed: failedScripCodes
   };
 
-  // Create data directory if it doesn't exist
-  fs.mkdirSync(dataDirectory, {
-    recursive: true
-  });
+  fs.mkdirSync(dataDirectory, { recursive: true });
+  fs.writeFileSync(outputPath, JSON.stringify(outputData, null, 2), 'utf8');
 
-  // Generate a new JSON file
-  fs.writeFileSync(
-    outputPath,
-    JSON.stringify(outputData, null, 2),
-    'utf8'
-  );
-
-  console.log('');
-  console.log('====================================');
+  console.log('\n====================================');
   console.log('✅ BSE JSON file generated');
   console.log('====================================');
   console.log(`📁 File: ${outputPath}`);
@@ -256,7 +197,7 @@ async function generateData() {
   console.log(`🕒 Generated at: ${generatedAt}`);
 }
 
-generateData().catch(error => {
-  console.error('❌ Data generation failed:', error);
+generateData().catch(err => {
+  console.error('❌ Data generation failed:', err);
   process.exit(1);
 });
