@@ -1,5 +1,4 @@
 // generate-data.js
-
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
@@ -101,12 +100,9 @@ const scripCodes = [
   "540180", // Varun Beverages
   "532648", // Yes Bank
   "500550", // Siemens
-  "500790", // (Nestle already listed)
-  "532215"  // (Axis already listed – example of overlap)
 ];
 
-const API_URL =
-  'https://api.bseindia.com/BseIndiaAPI/api/StockReachGraph/w';
+const API_URL = 'https://api.bseindia.com/BseIndiaAPI/api/StockReachGraphCas/w';
 
 const dataDirectory = path.join(__dirname, 'data');
 
@@ -116,21 +112,18 @@ function sleep(ms) {
 
 function getTimestamp() {
   const now = new Date();
-
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const day = String(now.getDate()).padStart(2, '0');
   const hours = String(now.getHours()).padStart(2, '0');
   const minutes = String(now.getMinutes()).padStart(2, '0');
   const seconds = String(now.getSeconds()).padStart(2, '0');
-
   return `${year}-${month}-${day}-${hours}-${minutes}-${seconds}`;
 }
 
 function fetchStockData(scripCode) {
   return new Promise((resolve, reject) => {
     const url = new URL(API_URL);
-
     url.searchParams.set('scripcode', scripCode);
     url.searchParams.set('flag', '0');
     url.searchParams.set('fromdate', '');
@@ -143,19 +136,15 @@ function fetchStockData(scripCode) {
         headers: {
           'User-Agent':
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151.0.0.0 Safari/537.36',
-
           'Accept': 'application/json, text/plain, */*',
-
           'Referer': 'https://www.bseindia.com/'
         }
       },
       response => {
         let data = '';
-
         response.on('data', chunk => {
           data += chunk;
         });
-
         response.on('end', () => {
           if (response.statusCode < 200 || response.statusCode >= 300) {
             reject(
@@ -165,7 +154,6 @@ function fetchStockData(scripCode) {
             );
             return;
           }
-
           try {
             resolve(JSON.parse(data));
           } catch (error) {
@@ -185,7 +173,6 @@ function fetchStockData(scripCode) {
 
     request.setTimeout(30000, () => {
       request.destroy();
-
       reject(
         new Error(
           `Request timeout for scrip code ${scripCode}`
@@ -197,43 +184,32 @@ function fetchStockData(scripCode) {
 
 async function generateData() {
   const generatedAt = new Date().toISOString();
-
-  // Generate timestamp for filename
   const timestamp = getTimestamp();
-
-  const outputFileName =
-    `bse-stock-data-${timestamp}.json`;
-
-  const outputPath =
-    path.join(dataDirectory, outputFileName);
+  const outputFileName = `bse-stock-data-${timestamp}.json`;
+  const outputPath = path.join(dataDirectory, outputFileName);
 
   const stockData = [];
   const failedScripCodes = [];
 
   console.log('====================================');
-  console.log('Starting BSE data fetch');
+  console.log('Starting BSE data fetch (StockReachGraphCas)');
   console.log('====================================');
-
   console.log(`Total scrip codes: ${scripCodes.length}`);
   console.log(`Timestamp: ${generatedAt}`);
   console.log('');
 
   for (const scripCode of scripCodes) {
     console.log(`Fetching scrip code: ${scripCode}`);
-
     try {
       const data = await fetchStockData(scripCode);
-
       stockData.push({
         scripCode,
         data
       });
-
       console.log(`✅ Successfully fetched: ${scripCode}`);
     } catch (error) {
       console.error(`❌ Failed: ${scripCode}`);
       console.error(`   ${error.message}`);
-
       failedScripCodes.push({
         scripCode,
         error: error.message
@@ -246,19 +222,14 @@ async function generateData() {
 
   const outputData = {
     generatedAt,
-
     timezone: 'Asia/Kolkata (IST)',
-
     meta: {
       totalScripCodes: scripCodes.length,
       successful: stockData.length,
       failed: failedScripCodes.length,
-
-      source: 'BSE India API'
+      source: 'BSE India API (StockReachGraphCas)'
     },
-
     stocks: stockData,
-
     failed: failedScripCodes
   };
 
@@ -278,7 +249,6 @@ async function generateData() {
   console.log('====================================');
   console.log('✅ BSE JSON file generated');
   console.log('====================================');
-
   console.log(`📁 File: ${outputPath}`);
   console.log(`📊 Total: ${scripCodes.length}`);
   console.log(`✅ Successful: ${stockData.length}`);
