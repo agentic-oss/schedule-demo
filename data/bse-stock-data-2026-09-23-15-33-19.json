@@ -1,0 +1,405 @@
+{
+  "generatedAt": "2026-09-23T15:33:19.996Z",
+  "timezone": "Asia/Kolkata (IST)",
+  "meta": {
+    "totalScripCodes": 98,
+    "successful": 0,
+    "failed": 98,
+    "source": "BSE India API"
+  },
+  "stocks": [],
+  "failed": [
+    {
+      "scripCode": "500325",
+      "error": "HTTP 403 for scrip code 500325"
+    },
+    {
+      "scripCode": "532454",
+      "error": "HTTP 403 for scrip code 532454"
+    },
+    {
+      "scripCode": "500180",
+      "error": "HTTP 403 for scrip code 500180"
+    },
+    {
+      "scripCode": "532174",
+      "error": "HTTP 403 for scrip code 532174"
+    },
+    {
+      "scripCode": "500112",
+      "error": "HTTP 403 for scrip code 500112"
+    },
+    {
+      "scripCode": "532540",
+      "error": "HTTP 403 for scrip code 532540"
+    },
+    {
+      "scripCode": "500034",
+      "error": "HTTP 403 for scrip code 500034"
+    },
+    {
+      "scripCode": "500510",
+      "error": "HTTP 403 for scrip code 500510"
+    },
+    {
+      "scripCode": "543526",
+      "error": "HTTP 403 for scrip code 543526"
+    },
+    {
+      "scripCode": "500696",
+      "error": "HTTP 403 for scrip code 500696"
+    },
+    {
+      "scripCode": "500209",
+      "error": "HTTP 403 for scrip code 500209"
+    },
+    {
+      "scripCode": "524715",
+      "error": "HTTP 403 for scrip code 524715"
+    },
+    {
+      "scripCode": "500114",
+      "error": "HTTP 403 for scrip code 500114"
+    },
+    {
+      "scripCode": "532500",
+      "error": "HTTP 403 for scrip code 532500"
+    },
+    {
+      "scripCode": "500520",
+      "error": "HTTP 403 for scrip code 500520"
+    },
+    {
+      "scripCode": "512599",
+      "error": "HTTP 403 for scrip code 512599"
+    },
+    {
+      "scripCode": "500247",
+      "error": "HTTP 403 for scrip code 500247"
+    },
+    {
+      "scripCode": "533096",
+      "error": "HTTP 403 for scrip code 533096"
+    },
+    {
+      "scripCode": "532921",
+      "error": "HTTP 403 for scrip code 532921"
+    },
+    {
+      "scripCode": "532215",
+      "error": "HTTP 403 for scrip code 532215"
+    },
+    {
+      "scripCode": "532281",
+      "error": "HTTP 403 for scrip code 532281"
+    },
+    {
+      "scripCode": "532538",
+      "error": "HTTP 403 for scrip code 532538"
+    },
+    {
+      "scripCode": "500875",
+      "error": "HTTP 403 for scrip code 500875"
+    },
+    {
+      "scripCode": "532555",
+      "error": "HTTP 403 for scrip code 532555"
+    },
+    {
+      "scripCode": "532977",
+      "error": "HTTP 403 for scrip code 532977"
+    },
+    {
+      "scripCode": "541154",
+      "error": "HTTP 403 for scrip code 541154"
+    },
+    {
+      "scripCode": "500228",
+      "error": "HTTP 403 for scrip code 500228"
+    },
+    {
+      "scripCode": "532978",
+      "error": "HTTP 403 for scrip code 532978"
+    },
+    {
+      "scripCode": "543320",
+      "error": "HTTP 403 for scrip code 543320"
+    },
+    {
+      "scripCode": "500049",
+      "error": "HTTP 403 for scrip code 500049"
+    },
+    {
+      "scripCode": "500312",
+      "error": "HTTP 403 for scrip code 500312"
+    },
+    {
+      "scripCode": "500790",
+      "error": "HTTP 403 for scrip code 500790"
+    },
+    {
+      "scripCode": "511218",
+      "error": "HTTP 403 for scrip code 511218"
+    },
+    {
+      "scripCode": "540376",
+      "error": "HTTP 403 for scrip code 540376"
+    },
+    {
+      "scripCode": "500188",
+      "error": "HTTP 403 for scrip code 500188"
+    },
+    {
+      "scripCode": "532898",
+      "error": "HTTP 403 for scrip code 532898"
+    },
+    {
+      "scripCode": "500820",
+      "error": "HTTP 403 for scrip code 500820"
+    },
+    {
+      "scripCode": "533278",
+      "error": "HTTP 403 for scrip code 533278"
+    },
+    {
+      "scripCode": "500440",
+      "error": "HTTP 403 for scrip code 500440"
+    },
+    {
+      "scripCode": "500470",
+      "error": "HTTP 403 for scrip code 500470"
+    },
+    {
+      "scripCode": "532488",
+      "error": "HTTP 403 for scrip code 532488"
+    },
+    {
+      "scripCode": "500300",
+      "error": "HTTP 403 for scrip code 500300"
+    },
+    {
+      "scripCode": "505200",
+      "error": "HTTP 403 for scrip code 505200"
+    },
+    {
+      "scripCode": "541450",
+      "error": "HTTP 403 for scrip code 541450"
+    },
+    {
+      "scripCode": "532343",
+      "error": "HTTP 403 for scrip code 532343"
+    },
+    {
+      "scripCode": "539448",
+      "error": "HTTP 403 for scrip code 539448"
+    },
+    {
+      "scripCode": "530965",
+      "error": "HTTP 403 for scrip code 530965"
+    },
+    {
+      "scripCode": "539254",
+      "error": "HTTP 403 for scrip code 539254"
+    },
+    {
+      "scripCode": "500420",
+      "error": "HTTP 403 for scrip code 500420"
+    },
+    {
+      "scripCode": "507685",
+      "error": "HTTP 403 for scrip code 507685"
+    },
+    {
+      "scripCode": "544274",
+      "error": "HTTP 403 for scrip code 544274"
+    },
+    {
+      "scripCode": "532725",
+      "error": "HTTP 403 for scrip code 532725"
+    },
+    {
+      "scripCode": "540719",
+      "error": "HTTP 403 for scrip code 540719"
+    },
+    {
+      "scripCode": "517334",
+      "error": "HTTP 403 for scrip code 517334"
+    },
+    {
+      "scripCode": "544569",
+      "error": "HTTP 403 for scrip code 544569"
+    },
+    {
+      "scripCode": "532868",
+      "error": "HTTP 403 for scrip code 532868"
+    },
+    {
+      "scripCode": "500331",
+      "error": "HTTP 403 for scrip code 500331"
+    },
+    {
+      "scripCode": "543940",
+      "error": "HTTP 403 for scrip code 543940"
+    },
+    {
+      "scripCode": "500002",
+      "error": "HTTP 403 for scrip code 500002"
+    },
+    {
+      "scripCode": "508869",
+      "error": "HTTP 403 for scrip code 508869"
+    },
+    {
+      "scripCode": "500477",
+      "error": "HTTP 403 for scrip code 500477"
+    },
+    {
+      "scripCode": "540611",
+      "error": "HTTP 403 for scrip code 540611"
+    },
+    {
+      "scripCode": "500490",
+      "error": "HTTP 403 for scrip code 500490"
+    },
+    {
+      "scripCode": "532134",
+      "error": "HTTP 403 for scrip code 532134"
+    },
+    {
+      "scripCode": "500547",
+      "error": "HTTP 403 for scrip code 500547"
+    },
+    {
+      "scripCode": "500825",
+      "error": "HTTP 403 for scrip code 500825"
+    },
+    {
+      "scripCode": "532483",
+      "error": "HTTP 403 for scrip code 532483"
+    },
+    {
+      "scripCode": "500093",
+      "error": "HTTP 403 for scrip code 500093"
+    },
+    {
+      "scripCode": "511243",
+      "error": "HTTP 403 for scrip code 511243"
+    },
+    {
+      "scripCode": "500087",
+      "error": "HTTP 403 for scrip code 500087"
+    },
+    {
+      "scripCode": "532541",
+      "error": "HTTP 403 for scrip code 532541"
+    },
+    {
+      "scripCode": "500480",
+      "error": "HTTP 403 for scrip code 500480"
+    },
+    {
+      "scripCode": "500182",
+      "error": "HTTP 403 for scrip code 500182"
+    },
+    {
+      "scripCode": "532187",
+      "error": "HTTP 403 for scrip code 532187"
+    },
+    {
+      "scripCode": "500400",
+      "error": "HTTP 403 for scrip code 500400"
+    },
+    {
+      "scripCode": "532155",
+      "error": "HTTP 403 for scrip code 532155"
+    },
+    {
+      "scripCode": "500425",
+      "error": "HTTP 403 for scrip code 500425"
+    },
+    {
+      "scripCode": "500103",
+      "error": "HTTP 403 for scrip code 500103"
+    },
+    {
+      "scripCode": "532286",
+      "error": "HTTP 403 for scrip code 532286"
+    },
+    {
+      "scripCode": "500257",
+      "error": "HTTP 403 for scrip code 500257"
+    },
+    {
+      "scripCode": "532424",
+      "error": "HTTP 403 for scrip code 532424"
+    },
+    {
+      "scripCode": "500830",
+      "error": "HTTP 403 for scrip code 500830"
+    },
+    {
+      "scripCode": "532810",
+      "error": "HTTP 403 for scrip code 532810"
+    },
+    {
+      "scripCode": "532955",
+      "error": "HTTP 403 for scrip code 532955"
+    },
+    {
+      "scripCode": "500469",
+      "error": "HTTP 403 for scrip code 500469"
+    },
+    {
+      "scripCode": "532461",
+      "error": "HTTP 403 for scrip code 532461"
+    },
+    {
+      "scripCode": "500124",
+      "error": "HTTP 403 for scrip code 500124"
+    },
+    {
+      "scripCode": "532777",
+      "error": "HTTP 403 for scrip code 532777"
+    },
+    {
+      "scripCode": "533179",
+      "error": "HTTP 403 for scrip code 533179"
+    },
+    {
+      "scripCode": "540699",
+      "error": "HTTP 403 for scrip code 540699"
+    },
+    {
+      "scripCode": "500387",
+      "error": "HTTP 403 for scrip code 500387"
+    },
+    {
+      "scripCode": "503806",
+      "error": "HTTP 403 for scrip code 503806"
+    },
+    {
+      "scripCode": "532667",
+      "error": "HTTP 403 for scrip code 532667"
+    },
+    {
+      "scripCode": "540180",
+      "error": "HTTP 403 for scrip code 540180"
+    },
+    {
+      "scripCode": "532648",
+      "error": "HTTP 403 for scrip code 532648"
+    },
+    {
+      "scripCode": "500550",
+      "error": "HTTP 403 for scrip code 500550"
+    },
+    {
+      "scripCode": "500790",
+      "error": "HTTP 403 for scrip code 500790"
+    },
+    {
+      "scripCode": "532215",
+      "error": "HTTP 403 for scrip code 532215"
+    }
+  ]
+}
